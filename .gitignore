@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+*.db
+*.db-wal
+*.db-shm
+backtest-data/
+signals/
+reports/
+logs/
+*-state.json
+autoresearch-results.tsv
+*.pkl
+run.log
