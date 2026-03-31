@@ -1,8 +1,10 @@
 # 🔮 El Oraculo
 
+![El Oraculo Banner](assets/banner.html)
+
 **Autonomous AI enhancement engine for crypto grid trading bots.**
 
-El Oraculo sits alongside your grid trading bot and makes it smarter — using Hidden Markov Models for regime detection, Nvidia Nemotron 120B for market predictions, and Karpathy-style autoresearch for autonomous parameter optimization. It feeds high-confidence signals to your bot to improve win rate, reduce whipsaw, and compound profits.
+El Oraculo sits alongside your grid trading bot and makes it smarter. The free tier gives you the signal pipeline, watchdog, conflict resolver, confidence tracker, and basic backtester. **[El Oraculo Pro](https://niiks7777.gumroad.com/l/el-oraculo-pro)** adds HMM Markov regime detection, Nemotron LLM predictions, Karpathy autoresearch, and self-evolving goals.
 
 Built for [Binance Futures](https://www.binance.com/en/futures) grid/mean-reversion strategies. Works with any bot that exposes a REST API for parameter overrides.
 
@@ -255,6 +257,29 @@ The relay server proxies Binance API calls for P&L tracking (read-only, source o
 - [Karpathy's autoresearch](https://github.com/karpathy/autoresearch) — autonomous experiment loop
 - [HKUDS OpenSpace](https://github.com/HKUDS/OpenSpace) — self-evolving skill engine
 - [CAMEL-AI OASIS](https://github.com/camel-ai/oasis) — multi-agent social simulation
+
+---
+
+## Free vs Pro
+
+| Feature | Free | Pro ($149) |
+|---------|------|-----------|
+| Signal pipeline + conflict resolver | Yes | Yes |
+| Confidence compounding | Yes | Yes |
+| Watchdog monitoring | Yes | Yes |
+| Telegram alerts | Yes | Yes |
+| Basic backtester | Yes | Yes |
+| Pattern analyzer | Yes | Yes |
+| Dashboard | Basic | Full command center |
+| **HMM Markov regime detection** | - | **+9% win rate** |
+| **Nemotron LLM predictions** | - | **Free API, real AI inference** |
+| **Karpathy autoresearch** | - | **20 iterations/cycle** |
+| **Faithful backtest engine** | - | **ADX guard, risk guards** |
+| **Self-evolving goals** | - | **Compound weekly targets** |
+| **Revenue attribution** | - | **Track which module makes money** |
+| **Skill evolution** | - | **Auto-promote/deprecate strategies** |
+
+**[Get El Oraculo Pro](https://niiks7777.gumroad.com/l/el-oraculo-pro)** — one-time purchase, lifetime updates, 30 days email support.
 
 ---
 

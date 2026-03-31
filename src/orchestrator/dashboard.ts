@@ -3,10 +3,15 @@ import * as fs from 'fs'
 import { CONFIG } from '../config'
 import { getSchedulerStatus } from './scheduler'
 import { getState as getConfidenceState } from './confidence-tracker'
-import { getCurrentGoal, getGoalHistory } from './goal-system'
 import { getSignalHistory, readPendingSignals } from './signal-bus'
 import { getWatchdogState } from './watchdog'
-import { getEvolutionReport } from '../evolution/skill-tracker'
+
+// Pro modules — loaded dynamically
+let getCurrentGoal: (() => unknown) | null = null
+let getGoalHistory: (() => unknown[]) | null = null
+let getEvolutionReport: (() => unknown) | null = null
+try { const m = require('./goal-system'); getCurrentGoal = m.getCurrentGoal; getGoalHistory = m.getGoalHistory } catch { /* Pro */ }
+try { const m = require('../evolution/skill-tracker'); getEvolutionReport = m.getEvolutionReport } catch { /* Pro */ }
 import pino from 'pino'
 
 const log = pino({ name: 'dashboard' })
@@ -29,8 +34,8 @@ export function startDashboard(): void {
 
   app.get('/api/goals', (_req, res) => {
     res.json({
-      current: getCurrentGoal(),
-      history: getGoalHistory(),
+      current: getCurrentGoal ? getCurrentGoal() : null,
+      history: getGoalHistory ? getGoalHistory() : [],
     })
   })
 
@@ -48,7 +53,7 @@ export function startDashboard(): void {
   })
 
   app.get('/api/evolution', (_req, res) => {
-    res.json(getEvolutionReport())
+    res.json(getEvolutionReport ? getEvolutionReport() : { active: [], promoted: [], deprecated: [], totalRevenue: 0, topSkill: null })
   })
 
   app.get('/api/autoresearch', (_req, res) => {

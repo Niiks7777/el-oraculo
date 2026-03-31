@@ -1,7 +1,5 @@
 import { startScheduler, stopScheduler } from './orchestrator/scheduler'
 import { startDashboard } from './orchestrator/dashboard'
-import { initializeBaseline } from './orchestrator/goal-system'
-import { bootstrapDefaultSkills } from './evolution/skill-tracker'
 import { sendTelegram } from './orchestrator/telegram-sender'
 import pino from 'pino'
 
@@ -13,15 +11,9 @@ async function main(): Promise<void> {
   // Start dashboard API
   startDashboard()
 
-  // Bootstrap default micro-skills for evolution tracking
-  bootstrapDefaultSkills()
-
-  // Initialize baseline goals from Binance
-  try {
-    await initializeBaseline()
-  } catch (err) {
-    log.warn({ err }, 'Could not initialize baseline — relay may not be ready yet')
-  }
+  // Pro modules — loaded dynamically
+  try { const { bootstrapDefaultSkills } = require('./evolution/skill-tracker'); bootstrapDefaultSkills() } catch { /* Pro */ }
+  try { const { initializeBaseline } = require('./orchestrator/goal-system'); await initializeBaseline() } catch { /* Pro */ }
 
   // Start all schedulers
   startScheduler()
