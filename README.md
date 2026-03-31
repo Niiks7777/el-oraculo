@@ -281,9 +281,9 @@ The relay server proxies Binance API calls for P&L tracking (read-only, source o
 | **Revenue attribution** | - | **Track which module makes money** |
 | **Skill evolution** | - | **Auto-promote/deprecate strategies** |
 
-**[Get El Oraculo Pro — 549 AED](https://buy.stripe.com/cNi4gB8ZWfVE5U7cpY5J600)** — one-time purchase, lifetime updates, 30 days email support.
+**[Get El Oraculo Pro](https://buy.stripe.com/cNi4gB8ZWfVE5U7cpY5J600)** — one-time purchase, lifetime updates, 30 days email support.
 
-**[Pro + Guided Installation — 1,279 AED](https://buy.stripe.com/28EfZj3FC7p82HV2Po5J601)** — everything above + 1:1 setup on your infrastructure.
+**[Pro + Guided Installation](https://buy.stripe.com/28EfZj3FC7p82HV2Po5J601)** — everything above + 1:1 setup on your infrastructure.
 
 ---
 
