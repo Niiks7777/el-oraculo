@@ -539,7 +539,7 @@ interface WeeklyGoal {
 
 ### Binance Proxy (Read-Only)
 
-Loads the bot's Binance API credentials from its `.env` file (`EL_PESOS_ENV_PATH`, default `/opt/crypto-bot/.env`). Signs all requests with HMAC-SHA256. Exposes:
+Loads the bot's Binance API credentials from its `.env` file (`EL_PESOS_ENV_PATH`, default `/path/to/your-bot/.env`). Signs all requests with HMAC-SHA256. Exposes:
 
 - `GET /api/binance/balance` -- wallet balance, available balance, unrealized profit
 - `GET /api/binance/income` -- income history with optional `startTime`, `endTime`, `incomeType` filters
@@ -712,11 +712,11 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/opt/el-oraculo
+WorkingDirectory=/path/to/el-oraculo
 ExecStart=/usr/bin/node dist/index.js
 Restart=always
 RestartSec=10
-EnvironmentFile=/opt/el-oraculo/.env
+EnvironmentFile=/path/to/el-oraculo/.env
 
 [Install]
 WantedBy=multi-user.target
@@ -730,11 +730,11 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/opt/el-oraculo
+WorkingDirectory=/path/to/el-oraculo
 ExecStart=/usr/bin/node dist/relay/server.js
 Restart=always
 RestartSec=10
-EnvironmentFile=/opt/el-oraculo/.env
+EnvironmentFile=/path/to/el-oraculo/.env
 
 [Install]
 WantedBy=multi-user.target
@@ -766,7 +766,7 @@ npm run train:hmm      # Train HMM models (Pro, requires Python 3.10+)
 | `./confidence-state.json` | Confidence multiplier state | Persistent, critical |
 | `./autoresearch-state.json` | Autoresearch loop state [Pro] | Persistent |
 | `./autoresearch-results.tsv` | Experiment log [Pro] | Persistent, append-only |
-| `/shared/trading-db/trading.db` | Trading bot SQLite database (read-only) | External, managed by bot |
+| `./data/trading.db` | Trading bot SQLite database (read-only) | External, managed by bot |
 
 ---
 

@@ -46,7 +46,7 @@ export const CONFIG = {
     signals: './signals',
     reports: './reports',
     backtestData: './backtest-data',
-    tradingDb: '/shared/trading-db/trading.db',
+    tradingDb: process.env.TRADING_DB_PATH || './data/trading.db',
   },
 
   schedules: {

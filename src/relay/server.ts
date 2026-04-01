@@ -15,9 +15,18 @@ import pino from 'pino'
 
 const log = pino({ name: 'oraculo-relay' })
 
-// Load El Pesos's Binance credentials from its .env
+// Load trading bot's Binance credentials from its .env
 function loadBinanceCredentials(): { apiKey: string; apiSecret: string; baseUrl: string } {
-  const envPath = process.env.EL_PESOS_ENV_PATH || '/opt/crypto-bot/.env'
+  const envPath = process.env.TRADING_BOT_ENV_PATH
+  if (!envPath) {
+    log.error('TRADING_BOT_ENV_PATH not set. Set it to your trading bot\'s .env file path.')
+    log.error('Example: TRADING_BOT_ENV_PATH=/path/to/your-bot/.env')
+    process.exit(1)
+  }
+  if (!fs.existsSync(envPath)) {
+    log.error({ path: envPath }, 'Trading bot .env file not found')
+    process.exit(1)
+  }
   const envContent = fs.readFileSync(envPath, 'utf-8')
   const vars: Record<string, string> = {}
 

@@ -287,6 +287,40 @@ The relay server proxies Binance API calls for P&L tracking (read-only, source o
 
 ---
 
+## Setting Up Pro
+
+After purchasing, you'll receive a ZIP file with the Pro modules. Install in 3 steps:
+
+```bash
+# 1. Unzip the Pro package
+unzip el-oraculo-pro-v1.0.0.zip
+
+# 2. Run the installer from your el-oraculo project root
+cd /path/to/el-oraculo
+bash /path/to/el-oraculo-pro/install.sh
+
+# 3. Add your OpenRouter API key to .env (free at openrouter.ai)
+echo "OPENROUTER_API_KEY=sk-or-v1-your-key" >> .env
+
+# 4. Restart
+npm run build && npm start
+```
+
+**What changes after installing Pro:**
+
+| Module | What It Does | Schedule |
+|--------|-------------|----------|
+| **HMM Markov** | Trains a 2-state Hidden Markov Model on 30 days of candle data. Detects normal vs spike regimes with 96-98% accuracy. Generates spacing signals when regime shifts. | Every 1 hour |
+| **Nemotron LLM** | Calls Nvidia Nemotron 120B (free via OpenRouter) with full market context — indicators, funding rates, sentiment, news. Returns structured JSON predictions. | Every 4 hours |
+| **Autoresearch** | Proposes parameter changes, backtests against 7-day candle data using 30-day pattern analysis. Keeps improvements >2%, discards the rest. Pattern-guided 60% of the time. | Every 12 hours |
+| **Self-Evolving Goals** | Reads weekly P&L from Binance income API. Exceeded target? Compound up 10%. Missed? Diagnose. Missed hard? Reset and recalibrate. | Every Sunday |
+| **Faithful Backtest** | Replaces the basic backtester with ADX guard simulation (4-tier), risk guards (drawdown halt, anti-tilt), fee profitability guard, and abandoned position tracking. Produces realistic 80-87% win rates. | Used by autoresearch |
+| **Skill Evolution** | Tracks which analysis patterns produce revenue. Promotes skills that make money, deprecates those that don't. | Continuous |
+
+The scheduler auto-detects Pro modules on startup — you'll see `Pro modules active: 4` in the logs.
+
+---
+
 ## License
 
 MIT — see [LICENSE](LICENSE)

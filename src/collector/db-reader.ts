@@ -1,13 +1,16 @@
 import Database from 'better-sqlite3'
+import * as fs from 'fs'
 import { CONFIG } from '../config'
 import type { PerformanceSnapshot } from '../types'
 
-function openDb(): Database.Database {
+function openDb(): Database.Database | null {
+  if (!fs.existsSync(CONFIG.paths.tradingDb)) return null
   return new Database(CONFIG.paths.tradingDb, { readonly: true })
 }
 
 export function getRecentSnapshots(hours = 84): PerformanceSnapshot[] {
   const db = openDb()
+  if (!db) return []
   try {
     const cutoff = Date.now() - hours * 60 * 60 * 1000
     const rows = db
@@ -29,6 +32,7 @@ export function getRecentSnapshots(hours = 84): PerformanceSnapshot[] {
 
 export function getLearningChanges(limit = 20): unknown[] {
   const db = openDb()
+  if (!db) return []
   try {
     return db
       .prepare(
@@ -44,6 +48,7 @@ export function getLearningChanges(limit = 20): unknown[] {
 
 export function getRecentTrades(limit = 100): unknown[] {
   const db = openDb()
+  if (!db) return []
   try {
     return db
       .prepare(
@@ -59,6 +64,7 @@ export function getRecentTrades(limit = 100): unknown[] {
 
 export function getGridSessions(symbol?: string, limit = 20): unknown[] {
   const db = openDb()
+  if (!db) return []
   try {
     if (symbol) {
       return db
@@ -84,6 +90,7 @@ export function getGridSessions(symbol?: string, limit = 20): unknown[] {
 
 export function getDailyPnlFromDb(days = 14): unknown[] {
   const db = openDb()
+  if (!db) return []
   try {
     return db
       .prepare(
@@ -99,6 +106,7 @@ export function getDailyPnlFromDb(days = 14): unknown[] {
 
 export function getPlaybookPatterns(status = 'active'): unknown[] {
   const db = openDb()
+  if (!db) return []
   try {
     return db
       .prepare(
@@ -114,6 +122,7 @@ export function getPlaybookPatterns(status = 'active'): unknown[] {
 
 export function getNewsWithImpact(hours = 48): unknown[] {
   const db = openDb()
+  if (!db) return []
   try {
     const cutoff = Date.now() - hours * 60 * 60 * 1000
     return db
@@ -133,6 +142,7 @@ export function getNewsWithImpact(hours = 48): unknown[] {
 
 export function getEquitySnapshots(hours = 24): unknown[] {
   const db = openDb()
+  if (!db) return []
   try {
     const cutoff = Date.now() - hours * 60 * 60 * 1000
     return db
@@ -149,6 +159,7 @@ export function getEquitySnapshots(hours = 24): unknown[] {
 
 export function getStateValue(key: string): string | undefined {
   const db = openDb()
+  if (!db) return undefined
   try {
     const row = db.prepare('SELECT value FROM state WHERE key = ?').get(key) as
       | { value: string }
